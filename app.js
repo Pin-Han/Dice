@@ -9,3 +9,59 @@ GAME RULES:
 
 */
 
+var scores, roundScore, activePlayer, dice;
+
+scores = [0, 0];
+roundScore = 0;
+activePlayer = 0;
+
+
+document.querySelector('.dice').style.display = 'none';
+//這邊抓取class="dice"的元素 必且更改css display="none";
+
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
+
+
+document.querySelector('.btn-roll').addEventListener('click', function () {
+
+    var dice = Math.floor(Math.random() * 6) + 1;
+    //先定義dice為 1~6的 隨機數字
+    var diceDom = document.querySelector('.dice');
+    diceDom.style.display = 'block';
+    diceDom.src = 'dice-' + dice + '.png';
+
+
+
+    if (dice !== 1) {
+        //如果不等於1 繼續加上去  roundscore是一個用來存放分數
+        roundScore += dice;
+        document.getElementById('current-' + activePlayer).textContent = roundScore;
+    } else {
+        activePlayer === 1 ? activePlayer = 0 : activePlayer = 1;
+        roundScore = 0;
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-1').textContent = '0';
+
+
+        document.querySelector('.player-0-panel').classList.toggle('active');
+        document.querySelector('.player-1-panel').classList.toggle('active');
+
+
+        document.querySelector('.dice').style.display='none';
+    }
+});
+//addEventListener 第一個函數是觸發事件 第二個是調用的函數
+
+
+
+// dice = Math.floor(Math.random() * 6) + 1;
+//Math.floor ->省略小數點  Math.random ->隨機產生 0到1之間的數字
+
+// document.querySelector('#current-'+activePlayer).textContent = dice; //->這邊是單純更改文字內容
+// document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + '</em>'; //->這邊是更改html語法
+
+// var x =document.querySelector('#score-0').textContent;
+// console.log(x);
