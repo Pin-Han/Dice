@@ -11,18 +11,8 @@ GAME RULES:
 
 var scores, roundScore, activePlayer, dice;
 
-scores = [0, 0];
-roundScore = 0;
-activePlayer = 0; //左邊玩家是0 右邊玩家是1
+init();
 
-
-document.querySelector('.dice').style.display = 'none';
-//這邊抓取class="dice"的元素 必且更改css display="none";
-
-document.getElementById('score-0').textContent = '0';
-document.getElementById('score-1').textContent = '0';
-document.getElementById('current-0').textContent = '0';
-document.getElementById('current-1').textContent = '0';
 
 
 document.querySelector('.btn-roll').addEventListener('click', function () {
@@ -77,6 +67,31 @@ function nextPlayer() {
 
 
     document.querySelector('.dice').style.display = 'none';
+
+}
+document.querySelector('.btn-new').addEventListener('click', init);
+
+function init() {
+    //這是起始狀態
+    scores = [0, 0];
+    roundScore = 0;
+    activePlayer = 0; //左邊玩家是0 右邊玩家是1
+    document.querySelector('.dice').style.display = 'none';
+    //這邊抓取class="dice"的元素 必且更改css display="none";
+
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    document.getElementById('name-0').textContent = 'Player 1';
+    document.getElementById('name-1').textContent = 'Player 2';
+    document.querySelector('.player-0-panel').classList.remove('winner');
+    document.querySelector('.player-1-panel').classList.remove('winner');
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.remove('ctive');
+
+
 
 }
 //addEventListener 第一個函數是觸發事件 第二個是調用的函數
