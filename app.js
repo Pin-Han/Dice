@@ -9,48 +9,47 @@ GAME RULES:
 
 */
 
-var scores, roundScore, activePlayer, dice;
-
+var scores, roundScore, activePlayer, dice, gamePlaying;
+gamePlaying = true;
 init();
-
-
-
 document.querySelector('.btn-roll').addEventListener('click', function () {
 
-    var dice = Math.floor(Math.random() * 6) + 1;
-    //先定義dice為 1~6的 隨機數字
-    var diceDom = document.querySelector('.dice');
-    diceDom.style.display = 'block';
-    diceDom.src = 'dice-' + dice + '.png';
-
-
-
-    if (dice !== 1) {
-        //如果不等於1 繼續加上去  roundscore是一個用來存放分數
-        roundScore += dice;
-        document.getElementById('current-' + activePlayer).textContent = roundScore;
-    } else {
-        nextPlayer();
+    if (gamePlaying) {
+        var dice = Math.floor(Math.random() * 6) + 1;
+        //先定義dice為 1~6的 隨機數字
+        var diceDom = document.querySelector('.dice');
+        diceDom.style.display = 'block';
+        diceDom.src = 'dice-' + dice + '.png';
+        if (dice !== 1) {
+            //如果不等於1 繼續加上去  roundscore是一個用來存放分數
+            roundScore += dice;
+            document.getElementById('current-' + activePlayer).textContent = roundScore;
+        } else {
+            nextPlayer();
+        }
     }
+
 });
 
 // click hold
 document.querySelector('.btn-hold').addEventListener('click', function () {
-    //1. add current score to global score
-    scores[activePlayer] += roundScore;
-    //2. update the UI
-    document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-    //3.check if player won the game
+    if (gamePlaying) {
+        //1. add current score to global score
+        scores[activePlayer] += roundScore;
+        //2. update the UI
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
+        //3.check if player won the game
 
-    if (scores[activePlayer] >= 20) {
-        document.querySelector('#name-' + activePlayer).textContent = "Winner ! ";
-        document.querySelector('.dice').style.display = 'none';
-        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
-        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+        if (scores[activePlayer] >= 100) {
+            document.querySelector('#name-' + activePlayer).textContent = "Winner ! ";
+            document.querySelector('.dice').style.display = 'none';
+            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+            document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+            gamePlaying = false;
+        } else {
+            nextPlayer();
 
-    } else {
-        nextPlayer();
-
+        }
     }
 });
 
@@ -71,6 +70,7 @@ function nextPlayer() {
 }
 document.querySelector('.btn-new').addEventListener('click', init);
 
+
 function init() {
     //這是起始狀態
     scores = [0, 0];
@@ -89,7 +89,6 @@ function init() {
     document.querySelector('.player-1-panel').classList.remove('winner');
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
-    document.querySelector('.player-0-panel').classList.remove('ctive');
 
 
 
