@@ -39,7 +39,6 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
         //2. update the UI
         document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
         //3.check if player won the game
-
         if (scores[activePlayer] >= 100) {
             document.querySelector('#name-' + activePlayer).textContent = "Winner ! ";
             document.querySelector('.dice').style.display = 'none';
@@ -76,6 +75,7 @@ function init() {
     scores = [0, 0];
     roundScore = 0;
     activePlayer = 0; //左邊玩家是0 右邊玩家是1
+    gamePlaying=true;
     document.querySelector('.dice').style.display = 'none';
     //這邊抓取class="dice"的元素 必且更改css display="none";
 
@@ -89,6 +89,7 @@ function init() {
     document.querySelector('.player-1-panel').classList.remove('winner');
     document.querySelector('.player-0-panel').classList.remove('active');
     document.querySelector('.player-1-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.add('active');
 
 
 
